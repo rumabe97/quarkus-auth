@@ -1,6 +1,5 @@
 package com.lemon.auth.content.user.adapter.rest.dto.in;
 
-import com.lemon.auth.shared.search.SearchClass;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;

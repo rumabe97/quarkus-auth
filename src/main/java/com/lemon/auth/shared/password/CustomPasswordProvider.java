@@ -1,4 +1,4 @@
-package com.lemon.auth.config;
+package com.lemon.auth.shared.password;
 
 import io.quarkus.security.jpa.PasswordProvider;
 import jakarta.xml.bind.DatatypeConverter;
@@ -10,8 +10,6 @@ public class CustomPasswordProvider implements PasswordProvider {
     @Override
     public Password getPassword(String passwordInDatabase) {
         byte[] digest = DatatypeConverter.parseHexBinary(passwordInDatabase);
-
-        // Let the security runtime know that this passwordInDatabase is hashed using the SHA256 hashing algorithm
         return SimpleDigestPassword.createRaw(SimpleDigestPassword.ALGORITHM_SIMPLE_DIGEST_SHA_256, digest);
     }
 }

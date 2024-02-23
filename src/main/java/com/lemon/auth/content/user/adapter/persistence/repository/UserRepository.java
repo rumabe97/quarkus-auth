@@ -2,7 +2,6 @@ package com.lemon.auth.content.user.adapter.persistence.repository;
 
 import com.lemon.auth.content.user.adapter.persistence.entity.UserEntity;
 import com.lemon.auth.content.user.application.port.out.UserRepositoryPort;
-import com.lemon.auth.content.user.domain.User;
 import com.lemon.auth.shared.search.CriteriaSearch;
 import jakarta.enterprise.context.ApplicationScoped;
 
@@ -63,6 +62,7 @@ public class UserRepository implements UserRepositoryPort {
     @Override
     public UserEntity changePassword(String password, long id) {
         UserEntity user = get(id);
+        user.addPasswordHistory(password);
         user.setPassword(password);
         entityManager.merge(user);
         entityManager.flush();
