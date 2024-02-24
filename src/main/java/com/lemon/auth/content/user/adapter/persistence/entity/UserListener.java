@@ -1,6 +1,5 @@
 package com.lemon.auth.content.user.adapter.persistence.entity;
 
-import com.lemon.auth.shared.password.PasswordValidator;
 import io.quarkus.elytron.security.common.BcryptUtil;
 import jakarta.persistence.PrePersist;
 import jakarta.persistence.PreUpdate;
@@ -11,7 +10,7 @@ public class UserListener {
     @PreUpdate
     public void prePersistOrUpdate(UserEntity user){
         if (user.getPassword() == null) return;
-        PasswordValidator.validatePassword(user.getPassword());
+        if (user.getPassword().startsWith("$2a$10$")) return;
         user.setPassword(BcryptUtil.bcryptHash(user.getPassword()));
     }
 }

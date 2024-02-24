@@ -33,7 +33,7 @@ import java.util.List;
 public class UserEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "user_id")
+    @Column(name = "userId")
     private Long id;
 
     @Column(name = "name", nullable = false)
@@ -64,9 +64,9 @@ public class UserEntity {
     public String role;
 
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
-    @JoinColumn(name = "usuario_id")
+    @JoinColumn(name = "userId")
     @OrderColumn
-    public List<PasswordHistoryEntity> passwordHistory = new ArrayList<>(5);
+    private List<PasswordHistoryEntity> passwordHistory = new ArrayList<>(5);
 
     @Column(updatable = false)
     @CreationTimestamp

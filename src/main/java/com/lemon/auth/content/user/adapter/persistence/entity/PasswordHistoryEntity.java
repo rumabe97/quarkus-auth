@@ -19,14 +19,14 @@ import java.time.LocalDateTime;
 public class PasswordHistoryEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "passwordHistory_id")
+    @Column(name = "passwordHistoryId")
     private Long id;
 
     @Column(name = "password", nullable = false)
     private String password;
 
     @ManyToOne
-    @JoinColumn(name = "usuario_id")
+    @JoinColumn(name = "userId")
     public UserEntity user;
 
     @Column(updatable = false)

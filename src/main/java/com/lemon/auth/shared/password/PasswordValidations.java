@@ -1,23 +1,13 @@
 package com.lemon.auth.shared.password;
 
-
-import jakarta.validation.ConstraintViolationException;
+import com.lemon.auth.content.user.adapter.rest.dto.in.UserInDto;
+import jakarta.validation.ConstraintValidatorContext;
 
 import java.util.regex.Pattern;
 
-public class PasswordValidator {
-
+public class PasswordValidations {
     private static final int MIN_LENGTH = 8;
 
-    public static void validatePassword(String password) {
-        if (password.length() < MIN_LENGTH ||
-                !containsUppercase(password) ||
-                !containsLowercase(password) ||
-                !containsDigit(password) ||
-                !containsSpecialCharacter(password)) {
-            throw new ConstraintViolationException("The password does not meet security requirements", null);
-        }
-    }
 
     private static boolean containsUppercase(String s) {
         return Pattern.compile("[A-Z]").matcher(s).find();
@@ -33,5 +23,13 @@ public class PasswordValidator {
 
     private static boolean containsSpecialCharacter(String s) {
         return Pattern.compile("[!@#$%^&*()-_=+\\[\\]{}|;:'\",.<>/?]").matcher(s).find();
+    }
+
+    public boolean isValid(String password) {
+        return password.length() >= MIN_LENGTH &&
+                containsUppercase(password) &&
+                containsLowercase(password) &&
+                containsDigit(password) &&
+                containsSpecialCharacter(password);
     }
 }

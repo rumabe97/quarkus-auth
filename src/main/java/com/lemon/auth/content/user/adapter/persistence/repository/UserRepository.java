@@ -47,10 +47,13 @@ public class UserRepository implements UserRepositoryPort {
 
     @Override
     public UserEntity update(UserEntity user, long id) {
+        UserEntity userBd = get(id);
         user.setId(id);
+        user.setPassword(userBd.getPassword());
+        user.setPasswordHistory(userBd.getPasswordHistory());
         entityManager.merge(user);
         entityManager.flush();
-        return get(id);
+        return user;
     }
 
     @Override

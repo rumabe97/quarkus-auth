@@ -6,8 +6,10 @@ import com.lemon.auth.content.user.adapter.rest.dto.in.UserInDto;
 import com.lemon.auth.content.user.adapter.rest.dto.out.UserOutDto;
 import com.lemon.auth.content.user.adapter.rest.mapper.UserDtoMapper;
 import com.lemon.auth.content.user.application.port.in.UserPort;
+import com.lemon.auth.shared.password.validator.ValidationQueryParam;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
+import jakarta.validation.Valid;
 import jakarta.ws.rs.*;
 import org.eclipse.microprofile.openapi.annotations.Operation;
 import org.eclipse.microprofile.openapi.annotations.parameters.RequestBody;
@@ -58,7 +60,7 @@ public class UserController {
     @Operation(summary = "Create a User entity.")
     public UserOutDto create(
             @RequestBody(description = "Template data object", required = true)
-            UserInDto user) {
+            @Valid UserInDto user) {
         return mapper.toOutDto(userPort.create(mapper.toDomainModel(user)));
     }
 
@@ -84,7 +86,7 @@ public class UserController {
     @Operation(summary = "Change Password")
     public UserOutDto changePassword(
             @PathParam("id") Long id,
-            @QueryParam("password") String password
+            @QueryParam("password") @ValidationQueryParam String password
     ){
         return mapper.toOutDto(userPort.changePassword(password, id));
     }
