@@ -51,6 +51,7 @@ public class UserRepository implements UserRepositoryPort {
         user.setId(id);
         user.setPassword(userBd.getPassword());
         user.setPasswordHistory(userBd.getPasswordHistory());
+        user.setRoles(userBd.getRoles());
         entityManager.merge(user);
         entityManager.flush();
         return user;

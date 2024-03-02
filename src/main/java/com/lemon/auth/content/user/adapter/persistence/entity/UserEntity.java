@@ -1,5 +1,6 @@
 package com.lemon.auth.content.user.adapter.persistence.entity;
 
+import com.lemon.auth.content.rol.adapter.persistence.entity.RolEntity;
 import com.lemon.auth.shared.password.CustomPasswordProvider;
 import io.quarkus.security.jpa.Password;
 import io.quarkus.security.jpa.PasswordType;
@@ -27,7 +28,6 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@EntityListeners(UserListener.class)
 @Table(name = "users")
 @UserDefinition
 public class UserEntity {
@@ -61,7 +61,9 @@ public class UserEntity {
     private String userName;
 
     @Roles
-    public String role;
+    @ManyToMany
+    @Column(name = "roles")
+    public List<RolEntity> roles;
 
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
     @JoinColumn(name = "userId")
@@ -83,5 +85,13 @@ public class UserEntity {
         passwordHistoryItem.setPassword(this.getPassword());
         passwordHistoryItem.setUser(this);
         history.add(passwordHistoryItem);
+    }
+
+    @PrePersist
+    @PreUpdate
+    public void prePersistOrUpdate(){
+        if (this.getPassword() == null) return;
+        if (this.getPassword().startsWith("$2a$10$")) return;
+        this.setPassword(BcryptUtil.bcryptHash(this.getPassword()));
     }
 }

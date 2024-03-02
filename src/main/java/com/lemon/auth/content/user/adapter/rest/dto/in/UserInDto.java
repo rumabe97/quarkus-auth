@@ -19,7 +19,7 @@ public class UserInDto {
     @Email(message = "Invalid email format")
     private String email;
     private Integer phone;
-    @Digits(integer = 5, fraction = 0, message = "Country code must be between 1 and 3 characters")
+    @Digits(integer = 5, fraction = 0, message = "Country code must be between 1 and 5 characters")
     private Integer countryCode;
     private String password;
     @NotBlank
