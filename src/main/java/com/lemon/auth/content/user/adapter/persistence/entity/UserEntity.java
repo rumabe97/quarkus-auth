@@ -87,11 +87,28 @@ public class UserEntity {
         history.add(passwordHistoryItem);
     }
 
-    @PrePersist
     @PreUpdate
     public void prePersistOrUpdate(){
+        this.passwordEncrypt();
+    }
+
+    @PrePersist
+    public void prePersist() {
+        this.passwordEncrypt();
+        this.setDefaultRol();
+    }
+
+    private void passwordEncrypt(){
         if (this.getPassword() == null) return;
         if (this.getPassword().startsWith("$2a$10$")) return;
         this.setPassword(BcryptUtil.bcryptHash(this.getPassword()));
+    }
+
+    private void setDefaultRol(){
+        RolEntity rol = new RolEntity();
+        rol.setId(1L);
+        List<RolEntity> defaultRoles = new ArrayList<>();
+        defaultRoles.add(rol);
+        this.setRoles(defaultRoles);
     }
 }

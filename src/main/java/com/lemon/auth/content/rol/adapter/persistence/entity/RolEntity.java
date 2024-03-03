@@ -25,11 +25,11 @@ public class RolEntity {
     @Column(name = "rolId")
     private Long id;
 
-    @Column(name = "name", nullable = false)
+    @Column(name = "name", nullable = false, unique = true, updatable = false)
     @RolesValue
     private String name;
 
-    @Column(name = "description", nullable = false)
+    @Column(name = "description", nullable = false, updatable = false)
     private String description;
 
     @ManyToMany(mappedBy = "roles")
