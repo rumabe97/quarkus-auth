@@ -33,6 +33,13 @@ public class RolController {
     }
 
     @GET
+    @Path("/getByName/{name}")
+    @Operation(summary = "Get a Rol entity by name.")
+    public RolOutDto getByName(@PathParam("name") String name) {
+        return mapper.toOutDto(rolPort.getByName(name));
+    }
+
+    @GET
     @Path("/all")
     @Operation(summary = "Get all Rol entity.")
     public List<RolOutDto> getAll(

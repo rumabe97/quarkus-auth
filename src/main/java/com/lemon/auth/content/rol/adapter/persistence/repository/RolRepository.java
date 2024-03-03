@@ -26,7 +26,10 @@ public class RolRepository implements RolRepositoryPort {
 
     @Override
     public RolEntity getByName(String name) {
-        return null;
+        TypedQuery<RolEntity> query = entityManager.createQuery("SELECT r FROM RolEntity r WHERE r.name = :name", RolEntity.class);
+        query.setParameter("name", name);
+
+        return query.getSingleResult();
     }
 
     @Override
