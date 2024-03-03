@@ -1,0 +1,27 @@
+[
+  {
+    "name": "ROL_USER",
+    "description": "Rol for basic user",
+    "id": 1
+  },
+  {
+    "name": "ROL_USER_PREMIUM",
+    "description": "Rol for premium user",
+    "id": 2
+  },
+  {
+    "name": "ROL_COMPANY",
+    "description": "Rol for basic company",
+    "id": 3
+  },
+  {
+    "name": "ROL_COMPANY_PREMIUM",
+    "description": "Rol for premium company",
+    "id": 4
+  },
+  {
+    "name": "ROL_ADMIN",
+    "description": "Rol for admin user",
+    "id": 5
+  }
+]
