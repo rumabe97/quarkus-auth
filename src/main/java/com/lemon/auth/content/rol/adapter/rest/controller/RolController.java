@@ -5,10 +5,7 @@ import com.lemon.auth.content.rol.adapter.rest.mapper.RolDtoMapper;
 import com.lemon.auth.content.rol.application.port.in.RolPort;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
-import jakarta.ws.rs.GET;
-import jakarta.ws.rs.Path;
-import jakarta.ws.rs.PathParam;
-import jakarta.ws.rs.QueryParam;
+import jakarta.ws.rs.*;
 import org.eclipse.microprofile.openapi.annotations.Operation;
 import org.eclipse.microprofile.openapi.annotations.tags.Tag;
 
@@ -43,9 +40,9 @@ public class RolController {
     @Path("/all")
     @Operation(summary = "Get all Rol entity.")
     public List<RolOutDto> getAll(
-            @QueryParam("order") String order,
-            @QueryParam("quantity") Integer quantity,
-            @QueryParam("page") Integer page
+            @QueryParam("order") @DefaultValue("id") String order,
+            @QueryParam("quantity") @DefaultValue("5") Integer quantity,
+            @QueryParam("page") @DefaultValue("0")Integer page
     ) throws InvocationTargetException, NoSuchMethodException, IllegalAccessException {
         return rolPort.getAll(order, quantity, page).stream().map(user -> mapper.toOutDto(user)).toList();
     }

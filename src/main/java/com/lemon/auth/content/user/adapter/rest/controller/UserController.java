@@ -38,9 +38,9 @@ public class UserController {
     @Path("/all")
     @Operation(summary = "Get all User entity.")
     public List<UserOutDto> getAll(
-            @QueryParam("order") String order,
-            @QueryParam("quantity") Integer quantity,
-            @QueryParam("page") Integer page
+            @QueryParam("order") @DefaultValue("id") String order,
+            @QueryParam("quantity") @DefaultValue("5") Integer quantity,
+            @QueryParam("page") @DefaultValue("0")Integer page
     ) throws InvocationTargetException, NoSuchMethodException, IllegalAccessException {
         return userPort.getAll(order, quantity, page).stream().map(user -> mapper.toOutDto(user)).toList();
     }
@@ -49,9 +49,9 @@ public class UserController {
     @Path("/search")
     @Operation(summary = "Search User entity.")
     public List<UserOutDto> search(
-            @QueryParam("order") String order,
-            @QueryParam("quantity") Integer quantity,
-            @QueryParam("page") Integer page,
+            @QueryParam("order") @DefaultValue("id") String order,
+            @QueryParam("quantity") @DefaultValue("5") Integer quantity,
+            @QueryParam("page") @DefaultValue("0")Integer page,
             SearchUserInDto searchUser) throws InvocationTargetException, IllegalAccessException, NoSuchMethodException {
         return userPort.search(mapper.toDomainModel(searchUser), order, quantity, page).stream().map(user -> mapper.toOutDto(user)).toList();
     }

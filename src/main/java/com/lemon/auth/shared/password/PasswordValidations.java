@@ -22,6 +22,7 @@ public class PasswordValidations {
     }
 
     public boolean isValid(String password) {
+        if(password == null) return false;
         return password.length() >= Constants.MIN_LENGTH &&
                 containsUppercase(password) &&
                 containsLowercase(password) &&
