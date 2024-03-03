@@ -10,6 +10,7 @@ import jakarta.persistence.criteria.Root;
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
+import java.util.List;
 
 public class CriteriaSearch<T> {
     public CriteriaSearch() {}
@@ -30,6 +31,9 @@ public class CriteriaSearch<T> {
             getterMethod.setAccessible(true);
             Object value = getterMethod.invoke(searchObject);
             if (value == null) continue;
+            if (value instanceof List<?> list){
+                if(list.isEmpty()) continue;
+            }
             predicate = criteriaBuilder.and(predicate, criteriaBuilder.equal(root.get(field.getName()), value));
         }
 
