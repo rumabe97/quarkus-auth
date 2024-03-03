@@ -34,4 +34,10 @@ public class RolService implements RolPort {
     public List<Rol> getAll(String order, Integer quantity, Integer page) throws InvocationTargetException, NoSuchMethodException, IllegalAccessException {
         return rolRepositoryPort.getAll(order, quantity, page).stream().map(rolEntity -> mapper.toDomainModel(rolEntity)).toList();
     }
+
+    @Override
+    @Transactional
+    public void createRol(Rol rol) {
+        rolRepositoryPort.createRol(mapper.toEntity(rol));
+    }
 }

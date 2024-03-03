@@ -29,7 +29,7 @@ public class RolEntity {
     @RolesValue
     private String name;
 
-    @Column(name = "descripcion", nullable = false)
+    @Column(name = "description", nullable = false)
     private String description;
 
     @ManyToMany(mappedBy = "roles")

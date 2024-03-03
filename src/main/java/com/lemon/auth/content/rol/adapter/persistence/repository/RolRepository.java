@@ -38,4 +38,10 @@ public class RolRepository implements RolRepositoryPort {
         TypedQuery<RolEntity> query = criteriaSearch.buildQuery(entityManager,empty, RolEntity.class, order,quantity,page);
         return query.getResultList();
     }
+
+    @Override
+    public void createRol(RolEntity rol) {
+        entityManager.merge(rol);
+        entityManager.flush();
+    }
 }

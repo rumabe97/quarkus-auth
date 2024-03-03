@@ -12,4 +12,6 @@ public interface RolPort {
     Rol getByName(String name);
 
     List<Rol> getAll( String order, Integer quantity, Integer page) throws InvocationTargetException, NoSuchMethodException, IllegalAccessException;
+
+    void createRol(Rol rol);
 }
