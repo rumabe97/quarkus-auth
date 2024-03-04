@@ -1,6 +1,7 @@
 package com.lemon.auth.content.user.adapter.persistence.entity;
 
 import com.lemon.auth.content.rol.adapter.persistence.entity.RolEntity;
+import com.lemon.auth.shared.exception.ChangePasswordException;
 import com.lemon.auth.shared.password.CustomPasswordProvider;
 import io.quarkus.security.jpa.Password;
 import io.quarkus.security.jpa.PasswordType;
@@ -8,7 +9,6 @@ import io.quarkus.security.jpa.Roles;
 import io.quarkus.security.jpa.UserDefinition;
 import io.quarkus.security.jpa.Username;
 import jakarta.persistence.*;
-import jakarta.validation.ConstraintViolationException;
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -77,10 +77,10 @@ public class UserEntity {
     @UpdateTimestamp
     private LocalDateTime updatedAt;
 
-    public void addPasswordHistory(String newPassword) {
+    public void addPasswordHistory(String newPassword) throws ChangePasswordException {
         List<PasswordHistoryEntity> history = this.getPasswordHistory();
         boolean isOld = history.stream().anyMatch(p -> BcryptUtil.matches(newPassword, p.getPassword()));
-        if(isOld) throw new ConstraintViolationException("The new password has been used before. Please choose a different one", null);
+        if(isOld || BcryptUtil.matches(newPassword, this.getPassword())) throw new ChangePasswordException();
         if(history.size() == 5) history.remove(0);
         PasswordHistoryEntity passwordHistoryItem = new PasswordHistoryEntity();
         passwordHistoryItem.setPassword(this.getPassword());

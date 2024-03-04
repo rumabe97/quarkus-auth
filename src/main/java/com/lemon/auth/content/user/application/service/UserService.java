@@ -4,6 +4,7 @@ import com.lemon.auth.content.user.application.mapper.UserDomainMapper;
 import com.lemon.auth.content.user.application.port.in.UserPort;
 import com.lemon.auth.content.user.application.port.out.UserRepositoryPort;
 import com.lemon.auth.content.user.domain.User;
+import com.lemon.auth.shared.exception.ChangePasswordException;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
 import jakarta.transaction.Transactional;
@@ -55,7 +56,7 @@ public class UserService implements UserPort {
 
     @Override
     @Transactional
-    public User changePassword(String password, long id) {
+    public User changePassword(String password, long id) throws ChangePasswordException {
         return mapper.toDomainModel(userRepositoryPort.changePassword(password, id));
     }
 }

@@ -1,6 +1,7 @@
 package com.lemon.auth.content.user.application.port.in;
 
 import com.lemon.auth.content.user.domain.User;
+import com.lemon.auth.shared.exception.ChangePasswordException;
 
 import java.awt.*;
 import java.lang.reflect.InvocationTargetException;
@@ -19,6 +20,6 @@ public interface UserPort {
 
     void delete(long id);
 
-    User changePassword(String password, long id);
+    User changePassword(String password, long id) throws ChangePasswordException;
 
 }

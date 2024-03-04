@@ -6,6 +6,7 @@ import com.lemon.auth.content.user.adapter.rest.dto.in.UserInDto;
 import com.lemon.auth.content.user.adapter.rest.dto.out.UserOutDto;
 import com.lemon.auth.content.user.adapter.rest.mapper.UserDtoMapper;
 import com.lemon.auth.content.user.application.port.in.UserPort;
+import com.lemon.auth.shared.exception.ChangePasswordException;
 import com.lemon.auth.shared.password.validator.ValidationQueryParam;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
@@ -87,7 +88,7 @@ public class UserController {
     public UserOutDto changePassword(
             @PathParam("id") Long id,
             @QueryParam("password") @ValidationQueryParam String password
-    ){
+    ) throws ChangePasswordException {
         return mapper.toOutDto(userPort.changePassword(password, id));
     }
 }

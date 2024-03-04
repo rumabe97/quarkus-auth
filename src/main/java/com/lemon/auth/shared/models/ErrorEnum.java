@@ -9,6 +9,7 @@ public enum ErrorEnum {
     NotAllowedException(Response.Status.METHOD_NOT_ALLOWED),
     ConstraintViolationException(Response.Status.BAD_REQUEST),
     IllegalAccessException(Response.Status.INTERNAL_SERVER_ERROR),
+    ChangePasswordException(Response.Status.BAD_REQUEST),
     Default(Response.Status.INTERNAL_SERVER_ERROR);
 
     private final Response.Status status;

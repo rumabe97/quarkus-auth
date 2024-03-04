@@ -2,6 +2,7 @@ package com.lemon.auth.content.user.application.port.out;
 
 import com.lemon.auth.content.user.adapter.persistence.entity.UserEntity;
 import com.lemon.auth.content.user.domain.User;
+import com.lemon.auth.shared.exception.ChangePasswordException;
 
 import java.lang.reflect.InvocationTargetException;
 import java.util.List;
@@ -20,5 +21,5 @@ public interface UserRepositoryPort {
 
     void delete(long id);
 
-    UserEntity changePassword(String password, long id);
+    UserEntity changePassword(String password, long id) throws ChangePasswordException;
 }
